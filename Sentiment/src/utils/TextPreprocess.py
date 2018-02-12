@@ -2,6 +2,7 @@ import re
 from bs4 import BeautifulSoup
 import nltk
 from nltk.corpus import stopwords
+from gensim.models.doc2vec import TaggedDocument
 
 
 def review_to_words(raw_review):
@@ -39,3 +40,9 @@ def review_to_ngram(raw_review, grams = [1, 2, 3]):
     result = " ".join(tokens)
     #print result
     return result
+
+def tag_reviews(reviews, prefix):
+    tagged = []
+    for i, review in enumerate(reviews):
+        tagged.append(TaggedDocument(words=review.split(), tags=[prefix + '_%s' % i]))
+    return tagged
