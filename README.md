@@ -73,7 +73,7 @@ The process of training a shallow model is as following.
 
 ![](pic/deep-model.PNG)
 
-SVM的训练很花时间，可以把SVM变为logistic regression，效果没有多大变化。这部分作者用C代码写了word2vec的训练部分，我全部删掉自己实现了一遍。主要用到了gensim中的doc2vec模型。这个模型可以对每一段文字输出一个向量，对于情感分析非常方便，不过官方文档写得很烂，大部分只能靠自己查资料来实现。这里介绍两个不错的资料：[A gentle introduction to Doc2Vec](https://medium.com/scaleabout/a-gentle-introduction-to-doc2vec-db3e8c0cce5e) and [word2vec-sentiments](https://github.com/linanqiu/word2vec-sentiments)
+这个模型最好效果是0.87，doc2vec选取的向量为100维，分类器为SVM或logistic regression。SVM的训练很花时间，可以把SVM变为logistic regression，效果没有多大变化。这部分作者用C代码写了word2vec的训练部分，我全部删掉自己实现了一遍。主要用到了gensim中的doc2vec模型。这个模型可以对每一段文字输出一个向量，对于情感分析非常方便，不过官方文档写得很烂，大部分只能靠自己查资料来实现。这里介绍两个不错的资料：[A gentle introduction to Doc2Vec](https://medium.com/scaleabout/a-gentle-introduction-to-doc2vec-db3e8c0cce5e) and [word2vec-sentiments](https://github.com/linanqiu/word2vec-sentiments)
 
 
 #### Ensemble Model
@@ -83,6 +83,8 @@ The ensemble model will involve the above two method (BOW and Doc2Vec). In pract
 
 And in L2 level learning, I use logistic regression.
 
-下面是我根据代码写得示意图，能更好理解如何做ensemble。
 
-![](pic/ensemble_note.PNG)
+ensemble的结果是得分最高的，0.89。
+下面是我根据代码画的示意图，能更好理解如何做ensemble。
+
+![](pic/ensemble_note.png)
