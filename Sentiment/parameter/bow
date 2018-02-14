@@ -1,5 +1,0 @@
-L1 Regularization
-max_feature = 19000
-tfidf = true
-C = 1
-dic = "feature_chi.txt"

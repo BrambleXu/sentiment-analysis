@@ -1,15 +1,14 @@
 import pandas as pd
 
-doc2vec_result = pd.read_csv("result\\doc2vec.csv", header = 0)
-bow_result = pd.read_csv("result\\BOW_chi_tfidf.csv", header = 0)
+doc2vec_result = pd.read_csv('../../result/doc2vec_lr100_prob.csv', header=0)
+bow_result = pd.read_csv('../../result/bow_lr_prob.csv', header=0)
 
-num_reviews = bow_result["id"].size
 
-out = open("result\\ensemble_combine.csv", 'w')
-out.write("\"id\"" + "," + "\"sentiment\"")
-out.write("\n")
+combine = pd.DataFrame(data={'id': bow_result['id'],
+                             'sentiment': (bow_result['sentiment']+doc2vec_result['sentiment']) / 2})
 
-for i in xrange(num_reviews):
-    score = (doc2vec_result["sentiment"][i] + bow_result["sentiment"][i]) / 2.0
-    out.write(doc2vec_result["id"][i] + "," + str(score) + "\n")
-out.close()
+combine['sentiment'] = combine['sentiment'] >= 0.5
+combine['sentiment'] = combine['sentiment'].astype('int')
+
+print("output...")
+combine.to_csv('../Sentiment/result/combine.csv', index=False, quoting=3)
